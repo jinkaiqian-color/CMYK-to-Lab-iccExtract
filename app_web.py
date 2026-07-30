@@ -15,8 +15,12 @@ k = st.number_input("Black (%)", min_value=0.0, max_value=100.0)
 
 if st.button("Predict L*a*b*"):
     if uploaded_icc is not None:
-        # Streamlit handles the uploaded file securely in memory
-        results = calculate_lab(uploaded_icc, c, m, y, k)
+        # 1. Save the uploaded memory object to a temporary file on the server
+        with open("temp_profile.icc", "wb") as f:
+            f.write(uploaded_icc.getbuffer())
+            
+        # 2. Pass the temporary file name to your engine instead of the memory object
+        results = calculate_lab("temp_profile.icc", c, m, y, k)
         
         st.write("### Predicted Color")
         st.write(f"**L*:** {results['L']:.2f}")
