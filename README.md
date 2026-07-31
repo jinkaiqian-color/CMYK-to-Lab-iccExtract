@@ -7,7 +7,7 @@ A lightweight web utility for color management and printing operations. This too
 ECG profile compatibility is under construction.
 
 ## Live Demo
-You can use the tool directly in your browser here: **[Launch CMYK to L*a*b* Predictor](https://cmyk-to-lab-iccextract.streamlit.app/)**
+You can use the tool directly in your browser here: **[Launch CMYK to CIE L*a*b* Predictor](https://cmyk-to-lab-iccextract.streamlit.app/)**
 
 ## How to Use
 1. **Upload an ICC Profile:** Start by uploading any standard CMYK ICC profile (e.g., GRACoL, SWOP, Fogra, or a custom press profile). 
