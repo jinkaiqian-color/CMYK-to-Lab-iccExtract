@@ -1,4 +1,4 @@
-# CMYK to L*a*b* Predictor
+# CMYK to CIE L* a* b* Predictor
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cmyk-to-lab-iccextract.streamlit.app/)
 
