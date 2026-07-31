@@ -2,12 +2,12 @@
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cmyk-to-lab-iccextract.streamlit.app/)
 
-A lightweight web utility for color management and printing operations. This tool allows users to extract and predict accurate CIE L*a*b* colorimetric values from any user-supplied CMYK ICC press profile.
+A lightweight web utility for color management and printing operations. This tool allows users to extract and predict accurate CIE L* a* b* colorimetric values from any user-supplied CMYK ICC press profile.
 
 ECG profile compatibility is under construction.
 
 ## Live Demo
-You can use the tool directly in your browser here: **[Launch CMYK to CIE L*a*b* Predictor](https://cmyk-to-lab-iccextract.streamlit.app/)**
+You can use the tool directly in your browser here: **[Launch CMYK to CIE L* a* b* Predictor](https://cmyk-to-lab-iccextract.streamlit.app/)**
 
 ## How to Use
 1. **Upload an ICC Profile:** Start by uploading any standard CMYK ICC profile (e.g., GRACoL, SWOP, Fogra, or a custom press profile). 
