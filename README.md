@@ -4,6 +4,8 @@
 
 A lightweight web utility for color management and printing operations. This tool allows users to extract and predict accurate CIE L*a*b* colorimetric values from any user-supplied CMYK ICC press profile.
 
+ECG profile compatibility is under construction.
+
 ## Live Demo
 You can use the tool directly in your browser here: **[Launch CMYK to L*a*b* Predictor](https://cmyk-to-lab-iccextract.streamlit.app/)**
 
