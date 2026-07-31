@@ -11,7 +11,7 @@ st.divider()
 # ==========================================
 # TOOL 1: CMYK to Lab Predictor
 # ==========================================
-st.header("CMYK to L*a*b* Predictor")
+st.header("CMYK to L* a* b* Predictor")
 # Input fields
 c = st.number_input("Cyan (%)", min_value=0.0, max_value=100.0)
 m = st.number_input("Magenta (%)", min_value=0.0, max_value=100.0)
@@ -19,7 +19,7 @@ y = st.number_input("Yellow (%)", min_value=0.0, max_value=100.0)
 k = st.number_input("Black (%)", min_value=0.0, max_value=100.0)
 
 
-if st.button("Predict L*a*b*"):
+if st.button("Predict L* a* b*"):
     if uploaded_icc is not None:
         # Reset stream position just in case
         uploaded_icc.seek(0)
