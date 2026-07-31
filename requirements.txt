@@ -1,5 +1,3 @@
-os
-io
 numpy
 pandas
 streamlit
