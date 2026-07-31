@@ -37,8 +37,8 @@ st.divider()
 # ==========================================
 # TOOL 2: Lab Gamut Checker 
 # ==========================================
-st.header("CIE L* a* b* Gamut Checker")
-st.write("Enter an L*a*b* color to see if it can be printed by this profile. Due to GCR used during profile generating procedure, CMYK to Lab roundtrip may not produce the same value!")
+st.header("Profile L* a* b* Gamut Checker")
+st.write("Enter an L* a* b* color to see if it can be printed by this profile. Due to GCR used during profile generating procedure, CMYK to Lab roundtrip may not produce the same value!")
 
 # Use columns to lay out the inputs nicely side-by-side
 col1, col2, col3 = st.columns(3)

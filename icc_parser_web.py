@@ -106,7 +106,7 @@ class ICCParser:
             return self._parse_mft2(tag_offset, tag_name)
 
         elif tag_type == 'XYZ ':
-            # NEW: Wire up your existing XYZ parser, passing the byte slice!
+            # NEW: Wire up existing XYZ parser, passing the byte slice!
             return self._parse_xyz_type(self.raw_data[tag_offset:])
 
         else:
@@ -426,8 +426,8 @@ class ICCParser:
 
         return {
             'dimensions': actual_dims,
-            'precision': precision, # Added this back just in case
-            'shape': normalized_array.reshape(actual_dims + (output_channels,)).shape, # ADD THIS KEY
+            'precision': precision, 
+            'shape': normalized_array.reshape(actual_dims + (output_channels,)).shape, 
             'grid': normalized_array.reshape(actual_dims + (output_channels,))
         }
 
@@ -641,7 +641,6 @@ class ICCParser:
         """
         Takes a target Lab value, predicts the closest CMYK recipe using B2A1,
         and verifies it by running the CMYK back through A2B1 to check gamut clipping.
-        Uses pure NumPy vectorized 3D interpolation (No SciPy).
         """
 
         # ==========================================
@@ -653,7 +652,6 @@ class ICCParser:
         m_curves = b2a1['data'].get('M_curves')
         clut = b2a1['data']['CLUT']
         a_curves = b2a1['data']['A_curves'] # Mapped to 'C', 'M', 'Y', 'K'
-        # New
         # --- ABSOLUTE TO RELATIVE SCALING ---
         # 1. Convert input Absolute Lab to Absolute XYZ
         input_lab_array = np.array([[L, a, b]])
@@ -674,14 +672,7 @@ class ICCParser:
         a_norm = (lab_rel[1] + 128.0) / 255.0
         b_norm = (lab_rel[2] + 128.0) / 255.0
         pcs = np.array([L_norm, a_norm, b_norm])
-        # New
-        '''
-        # Normalize Lab to standard ICC 0.0 - 1.0 range
-        L_norm = L / 100.0
-        a_norm = (a + 128.0) / 255.0
-        b_norm = (b + 128.0) / 255.0
-        pcs = np.array([L_norm, a_norm, b_norm])
-        '''
+
         # Helper to apply 1D curves (identity or sampled)
         def apply_1d(val, curve_data):
             if curve_data is None or curve_data['type'] == 'identity':
@@ -785,7 +776,7 @@ class ICCParser:
         # Reshape to 1x4 array so it works with your existing evaluate_cmyk method
         cmyk_array = cmyk_out.reshape(1, 4)
 
-        # Push through your existing A2B1 method
+        # Push through existing A2B1 method
         a2b1_results = self.evaluate_cmyk(cmyk_array)
         predicted_lab = a2b1_results['Lab_abs'][0] 
 
