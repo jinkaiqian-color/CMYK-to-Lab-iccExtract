@@ -796,21 +796,9 @@ class ICCParser:
 
         # Calculate Delta Eab
         delta_e = np.linalg.norm(target_lab - predicted_lab)
-        in_gamut = delta_e <= 2.0 
-
-        print("=========================================")
-        if in_gamut:
-            print("Status: \033[92mColor is IN device CMYK gamut.\033[0m") 
-        else:
-            print("Status: \033[91mColor is NOT in device CMYK gamut.\033[0m")
-        print("=========================================")
+        in_gamut = delta_e <= 1.0 
 
         cmyk_pct = np.round(cmyk_out * 100, 2)
-        print(f"Input Target Lab:    L={L:.2f}, a={a:.2f}, b={b:.2f}")
-        print(f"Closest CMYK Recipe: C={cmyk_pct[0]}%, M={cmyk_pct[1]}%, Y={cmyk_pct[2]}%, K={cmyk_pct[3]}%")
-        print(f"Predicted Print Lab: L={predicted_lab[0]:.2f}, a={predicted_lab[1]:.2f}, b={predicted_lab[2]:.2f}")
-        print(f"Delta Eab:           {delta_e:.2f}")
-        print("=========================================\n")
 
         return {
             'in_gamut': in_gamut,

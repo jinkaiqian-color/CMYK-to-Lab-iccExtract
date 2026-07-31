@@ -28,3 +28,12 @@ def calculate_lab(icc_path, c, m, y, k):
         'a': predicted_lab[1],
         'b': predicted_lab[2]
     }
+
+def check_gamut(icc_path, L, a, b):
+    # Pass the Streamlit buffer directly;
+    parser = ICCParser(icc_path)
+    
+    # Run the gamut check
+    results = parser.check_color_gamut(L, a, b)
+    
+    return results
