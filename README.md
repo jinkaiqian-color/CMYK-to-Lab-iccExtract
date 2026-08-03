@@ -1,8 +1,8 @@
-# CMYK to CIE L* a* b* Predictor
+# Extract CIE L*a*b* data and gamut information from your CMYK printer icc profile
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cmyk-to-lab-iccextract.streamlit.app/)
 
-A lightweight web utility for color management and printing operations. This tool allows users to extract and predict accurate CIE L* a* b* colorimetric values from any user-supplied CMYK ICC press profile.
+A lightweight web utility for color management and printing operations. This tool allows users to extract and predict accurate CIE L* a* b* colorimetric values from any user-supplied CMYK ICC press profile. Or if you'd like to see a target L* a* b* is within the icc profile gamut or not.
 
 ECG profile compatibility is under construction.
 
