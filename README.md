@@ -1,4 +1,4 @@
-# Extract CIE L*a*b* data and gamut information from your CMYK printer icc profile
+# Extract data from your CMYK printer icc profile
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cmyk-to-lab-iccextract.streamlit.app/)
 
