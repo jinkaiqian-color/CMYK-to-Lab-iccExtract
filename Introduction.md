@@ -115,9 +115,29 @@ Different combinations of cyan, magenta, yellow, and black can often produce ver
 A spectrophotometer can confirm that the colors appear similar, but it cannot determine the exact 
 combination of inks that produced them.
 
-### The Key Takeaway
+### One Color Can Be Created by Multiple CMYK Recipes
 
-This distinction is the foundation of the entire discussion.
+A common assumption is that if we know a color's L* a* b* values, we should be able to work backward and 
+determine the CMYK percentages that produced it.
+
+The challenge is that color reproduction is not a one-to-one relationship.
+
+In printing, multiple CMYK combinations can often produce very similar colors.
+
+For example, a dark gray might be printed using:
+
+* More cyan, magenta, and yellow with less black
+* Less cyan, magenta, and yellow with more black
+* A balance somewhere in between
+
+Even though the CMYK recipes are different, the resulting Lab values may be very similar.
+
+This creates a problem.
+
+When a spectrophotometer measures a printed color, it only sees the final result. It has no way of 
+knowing which CMYK combination was used to get there.
+
+### The Key Takeaway
 
 A spectrophotometer is an incredibly powerful tool for measuring color. It tells us what color was printed 
 with remarkable accuracy.
@@ -137,24 +157,26 @@ Before we discuss ICC profiles, however, we must first examine another important
 This fact is one of the primary reasons why determining CMYK percentages from a measured color is far more 
 complicated than it first appears.
 
-### One Color Can Be Created by Multiple CMYK Recipes
 
-A common assumption is that if we know a color's L*a*b* values, we should be able to work backward and 
-determine the CMYK percentages that produced it.
+### The Missing Piece: ICC Profiles
 
-The challenge is that color reproduction is not a one-to-one relationship.
+To estimate CMYK values, we need additional information about how a specific printing system converts CMYK percentages into color.
 
-In printing, multiple CMYK combinations can often produce very similar colors.
+That information depends on factors such as:
 
-For example, a dark gray might be printed using:
+Press characteristics:
+* Ink set
+* Substrate
+* Screening method
+* Calibration condition
 
-* More cyan, magenta, and yellow with less black
-* Less cyan, magenta, and yellow with more black
-* A balance somewhere in between
+Without this information, there is no reliable way to connect a measured L* a* b* value back to a specific CMYK build.
 
-Even though the CMYK recipes are different, the resulting Lab values may be very similar.
+This is where ICC profiles become important. They provide a characterization of a specific printing condition and serve as the 
+missing link between CMYK percentages and measured color.
 
-This creates a problem.
+In Part 2, I will introduce a browser-based tool that uses user-supplied ICC profiles to explore this relationship. The tool 
+can predict the expected Lab value of a CMYK build and determine whether a target Lab color falls within the gamut of a selected 
+printer profile. The project is publicly available on GitHub and was developed as part of my own exploration into color science and
+practical color management.
 
-When a spectrophotometer measures a printed color, it only sees the final result. It has no way of 
-knowing which CMYK combination was used to get there.
