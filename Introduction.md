@@ -236,8 +236,8 @@ Examples of commonly encountered tags include:
 * Media White Point
 * Profile Description
 * Copyright Information
-* Device-to-PCS transformations
-* PCS-to-Device transformations
+* Device-to-PCS transformations (A2B0, A2B1, A2B2)
+* PCS-to-Device transformations (B2A0, B2A1, B2A2)
 
 <img width="411" height="419" alt="Screenshot 2026-08-04 095555" src="https://github.com/user-attachments/assets/880264d5-798b-470e-abc7-80a43dd7f66d" />
 
@@ -263,12 +263,6 @@ In practice, however, working directly with ICC profiles often requires speciali
 These applications are extremely powerful, but they are typically designed for production environments rather than for 
 learning, experimentation, or exploration.
 
-As a result, relatively simple questions can be surprisingly difficult to answer:
-
-* What L* a* b* value would this CMYK combination produce?
-* Is a particular L* a* b* color reproducible on this printing condition?
-* How close are two CMYK recipes to one another?
-
 For users who simply want to inspect color behavior or better understand a profile, it would be helpful to have a simpler 
 way to explore this information.
 
@@ -277,3 +271,72 @@ could allow users to upload an ICC profile and immediately begin exploring the r
 printer gamut.
 
 The result became a personal learning project that eventually evolved into an open-source tool available on GitHub.
+
+## Introducing the ICC Color Engine Parser
+
+As someone interested in learning more about ICC profiles and color science, I wanted a way to answer practical questions directly from a web browser:
+
+* What Lab value will a particular CMYK combination produce?
+* Is a target Lab color reproducible on a specific printing condition?
+* What CMYK values are suggested by a profile for a given Lab color?
+
+Those questions led to the development of a lightweight browser-based utility called the ICC Color Engine Parser.
+
+The tool allows users to upload a CMYK ICC profile and interact directly with the profile's color characterization data without requiring specialized prepress software.
+
+Support for Expanded Color Gamut (ECG) profiles is currently under development.
+
+Because the application runs entirely in a web browser, it can be used on virtually any computer without installing dedicated color-management software.
+
+### Live Demo
+
+The tool is publicly available at:
+
+ICC Color Engine Parser
+https://cmyk-to-lab-iccextract.streamlit.app/
+
+### How to Use
+1. **Upload an ICC Profile:** Start by uploading any standard CMYK ICC profile (e.g., GRACoL, SWOP, Fogra, or a custom press profile). 
+2. **Input CMYK Values:** Enter your desired target values for Cyan, Magenta, Yellow, and Black (ranging from 0% to 100%).
+3. **Predict Lab:** Click the predict button to calculate the exact L* a* b* color output based on the uploaded profile's colorimetric rendering intent.
+4. **Input Lab values:** Enter your desired L* a* b* target values and see if this color is within the color gamut of uploaded profile. Meanwhile, corresponding
+   CMYK value will be calculated and displayed.
+
+### Understanding ICC Profile Conversions in This Engine 
+To understand how this utility predicts color transformations, it is helpful to look under the hood at how ICC profiles handle color data. Specifically, this 
+tool mathematically ensures Absolute Colorimetric precision by leveraging the A2B1, B2A1, and wtpt (Media White Point) tags defined in the ICC specification.
+
+**Why Absolute Colorimetric?**
+
+In print production and proofing, we usually want to know the Absolute L* a* b* value, which includes the physical color of the paper substrate.In a perfect 
+world, an ICC profile would contain **A2B3** and **B2A3** tags, which are specifically designated for Absolute Colorimetric conversions. However, because these 
+tags are technically optional in the ICC specification, many CMYK press profiles completely omit them to save file size.To ensure universal compatibility across 
+all profiles, this engine bypasses the need for the A2B3/B2A3 tags by using a highly accurate mathematical scaling technique.
+
+**The Forward Pipeline (CMYK to Lab)**
+
+When you input CMYK values into the predictor:
+1. **Media-Relative Conversion (A2B1)**: The tool first passes the CMYK values through the A2B1 tag. This transforms the device CMYK into Media-Relative L* a* b*
+   (where the paper is assumed to be perfectly white).
+2. **White Point Scaling (wtpt)**: The engine reads the profile's Media White Point (wtpt tag). It converts the relative color to the XYZ color space, multiplies
+    it by the ratio of the physical media white point to the D50 standard illuminant, and converts it back.
+3. **Result**: This manual conversion yields an accurate Absolute L* a* b* value, accurately simulating the printed color on the actual paper stock.
+  
+**The Reverse Pipeline & Gamut Checking (Lab to CMYK)**
+
+When you input an Absolute L* a* b* target to check the gamut and generate a CMYK recipe:
+1. **Inverse Scaling**: The engine takes your Absolute L* a* b* input and uses the wtpt tag to reverse-scale it back to a Media-Relative value.
+2. **Gamut Mapping & GCR (B2A1)**: That relative value is fed into the B2A1 tag. Because the CMYK color gamut is significantly smaller than the visible L* a* b*
+   spectrum, the B2A1 table dictates how out-of-gamut colors are compressed to the edges of the printable space. It also applies the profile's embedded Gray
+   Component Replacement (GCR) or Under Color Removal (UCR) rules to determine the exact black ink separation.
+
+**Why Roundtrips Don't Always Match ?**
+
+Because the B2A1 table forces a specific GCR/black-generation rule during the L* a* b* $\rightarrow$ CMYK conversion, taking a CMYK value, converting it to L* a* b*, 
+and converting it back to CMYK will often yield a slightly different CMYK recipe. 
+
+## A Learning Project Open to Discussion
+This project began as a personal effort to better understand ICC profiles, color management, and the relationship between CMYK values and measured color. By 
+making the tool publicly available on GitHub, my hope is to encourage discussion, learn from others in the color-management community, and make ICC profiles a 
+little more accessible to those who are curious about how they work.
+
