@@ -23,14 +23,14 @@ To understand how this utility predicts color transformations, it is helpful to 
 
 In print production and proofing, we usually want to know the Absolute L* a* b* value, which includes the physical color of the paper substrate.In a perfect world, an ICC profile would contain **A2B3** and **B2A3** tags, which are specifically designated for Absolute Colorimetric conversions. However, because these tags are technically optional in the ICC specification, many CMYK press profiles completely omit them to save file size.To ensure universal compatibility across all profiles, this engine bypasses the need for the A2B3/B2A3 tags by using a highly accurate mathematical scaling technique.
 
-**The Forward Pipeline (CMYK to L* a* b*)**
+**The Forward Pipeline (CMYK to Lab)**
 
 When you input CMYK values into the predictor:
 1. **Media-Relative Conversion (A2B1)**: The tool first passes the CMYK values through the A2B1 tag. This transforms the device CMYK into Media-Relative L* a* b* (where the paper is assumed to be perfectly white).
 20. **White Point Scaling (wtpt)**: The engine reads the profile's Media White Point (wtpt tag). It converts the relative color to the XYZ color space, multiplies it by the ratio of the physical media white point to the D50 standard illuminant, and converts it back.
 21. **Result**: This manual conversion yields an accurate Absolute L* a* b* value, accurately simulating the printed color on the actual paper stock.
   
-**The Reverse Pipeline & Gamut Checking (L* a* b* to CMYK)**
+**The Reverse Pipeline & Gamut Checking (Lab to CMYK)**
 
 When you input an Absolute L* a* b* target to check the gamut and generate a CMYK recipe:
 1. **Inverse Scaling**: The engine takes your Absolute L* a* b* input and uses the wtpt tag to reverse-scale it back to a Media-Relative value.
