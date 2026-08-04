@@ -180,3 +180,100 @@ can predict the expected L* a* b* value of a CMYK build and determine whether a 
 printer profile. The project is publicly available on GitHub and was developed as part of my own exploration into color science and
 practical color management.
 
+## Part 2: Exploring ICC Profiles with a Browser-Based Color Prediction Tool
+In Part 1, we discussed why a spectrophotometer cannot determine the CMYK percentages used to create a printed color. While a 
+spectrophotometer can accurately measure the resulting color, it has no knowledge of the printing condition that produced it.
+
+That naturally leads to the next question:
+
+> If we have an ICC profile for a printing condition, what information does it actually contain?
+
+### The Basic Structure of an ICC Profile
+An ICC profile is a file that contains information describing the color behavior of a device or printing condition. According to 
+the ICC architecture, profiles contain data that enable color transformations between device values and the Profile Connection 
+Space (PCS), allowing colors to be interpreted consistently across different systems.
+
+At a high level, an ICC profile consists of:
+
+* A Header
+* A Tag Table
+* A Collection of Tags containing characterization data
+
+The Header provides general information about the profile itself, while the Tag Table acts like an index that points to the data 
+stored within the profile.
+
+### Header Information
+The Header contains basic information that identifies the profile and its intended use.
+
+Typical information includes:
+
+* Profile version
+* Device class
+* Color space
+* Profile Connection Space (PCS)
+* Creation date
+* Rendering intent
+* Profile identifier
+
+Rather than describing color behavior directly, the header serves as a roadmap that tells color-management software how to 
+interpret the profile.
+
+<img width="453" height="504" alt="Screenshot 2026-08-04 095537" src="https://github.com/user-attachments/assets/e1c43ef8-cb5b-4dbf-9cea-6af538ce168e" />
+
+*Figure 1. Example ICC profile header information.*
+
+For most everyday users, the header is primarily useful for identifying the type of profile being examined.
+
+### Tag Table
+
+After the header comes the Tag Table.
+
+The Tag Table functions much like a table of contents in a book. Rather than containing all of the characterization data itself, 
+it points to locations within the profile where specific pieces of information are stored.
+
+Examples of commonly encountered tags include:
+
+* Media White Point
+* Profile Description
+* Copyright Information
+* Device-to-PCS transformations
+* PCS-to-Device transformations
+
+<img width="411" height="419" alt="Screenshot 2026-08-04 095555" src="https://github.com/user-attachments/assets/880264d5-798b-470e-abc7-80a43dd7f66d" />
+
+*Figure 2. Example ICC profile tag table.*
+
+At first glance, the information contained within an ICC profile can appear highly technical. Between the header, tag table, and 
+numerous data structures referenced by those tags, there is a tremendous amount of information describing how a particular printing 
+condition reproduces color.
+
+Most users never interact directly with this information. Instead, color-management software reads the profile and performs the 
+necessary calculations behind the scenes.
+
+This raises an interesting question:
+
+> If all of this information already exists inside the ICC profile, how easy is it for someone to actually explore and use it?
+
+### Why This Matters
+
+Once an ICC profile has been created, it becomes a valuable description of a specific printing condition. The profile can be 
+used throughout a color-managed workflow to convert color data between devices and help achieve predictable color reproduction.
+
+In practice, however, working directly with ICC profiles often requires specialized color-management or prepress software. 
+These applications are extremely powerful, but they are typically designed for production environments rather than for 
+learning, experimentation, or exploration.
+
+As a result, relatively simple questions can be surprisingly difficult to answer:
+
+* What L* a* b* value would this CMYK combination produce?
+* Is a particular L* a* b* color reproducible on this printing condition?
+* How close are two CMYK recipes to one another?
+
+For users who simply want to inspect color behavior or better understand a profile, it would be helpful to have a simpler 
+way to explore this information.
+
+Rather than requiring specialized software installations or advanced color-management knowledge, a browser-based application 
+could allow users to upload an ICC profile and immediately begin exploring the relationship between CMYK values, Lab color, and 
+printer gamut.
+
+The result became a personal learning project that eventually evolved into an open-source tool available on GitHub.
