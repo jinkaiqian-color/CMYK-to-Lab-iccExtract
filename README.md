@@ -17,7 +17,7 @@ You can use the tool directly in your browser here: **[Launch ICC Color Engine P
 
 
 ## Understanding ICC Profile Conversions in This Engine 
-To understand how this utility predicts color transformations, it is helpful to look under the hood at how ICC profiles handle color data. Specifically, this tool mathematically ensures Absolute Colorimetric precision by leveraging the A2B1, B2A1, and wtpt (Media White Point) tags defined in the ICC specification (ISO 15076-1).
+To understand how this utility predicts color transformations, it is helpful to look under the hood at how ICC profiles handle color data. Specifically, this tool mathematically ensures Absolute Colorimetric precision by leveraging the A2B1, B2A1, and wtpt (Media White Point) tags defined in the ICC specification.
 
 **Why Absolute Colorimetric?**
 
