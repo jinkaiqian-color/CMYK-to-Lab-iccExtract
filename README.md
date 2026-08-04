@@ -12,8 +12,8 @@ You can use the tool directly in your browser here: **[Launch ICC Color Engine P
 ## How to Use
 1. **Upload an ICC Profile:** Start by uploading any standard CMYK ICC profile (e.g., GRACoL, SWOP, Fogra, or a custom press profile). 
 2. **Input CMYK Values:** Enter your desired target values for Cyan, Magenta, Yellow, and Black (ranging from 0% to 100%).
-3. **Predict L* a* b*:** Click the predict button to calculate the exact L* a* b* color output based on the uploaded profile's colorimetric rendering intent.
-4. **Input L* a* b* values:** Enter your desired L* a* b* target values and see if this color is within the color gamut of uploaded profile. Meanwhile, corresponding CMYK value will be calculated and displayed.
+3. **Predict Lab:** Click the predict button to calculate the exact L* a* b* color output based on the uploaded profile's colorimetric rendering intent.
+4. **Input Lab values:** Enter your desired L* a* b* target values and see if this color is within the color gamut of uploaded profile. Meanwhile, corresponding CMYK value will be calculated and displayed.
 
 
 ## Understanding ICC Profile Conversions in This Engine 
