@@ -19,7 +19,7 @@ of color measurement technology.
 I should note that I am not an ICC expert or formally trained color scientist. I am simply someone who enjoys
 learning about color science and exploring practical solutions to real-world printing challenges. The concepts 
 and tools discussed in this article grew out of that curiosity and a desire to better understand the relationship 
-between CMYK values, Lab color measurements, and printer capabilities.
+between CMYK values, L* a* b* color measurements, and printer capabilities.
 
 My goal in this series is not to present myself as an authority, but rather to share what I have learned and 
 encourage discussion within the printing and color management community. I welcome feedback, alternative 
@@ -27,7 +27,7 @@ perspectives, and technical insights from those with deeper expertise than my ow
 
 In Part 1, we will explore why a spectrophotometer can measure a color accurately but cannot determine the 
 unique CMYK recipe used to create it. In Part 2, we will examine how ICC profiles provide the missing information 
-and introduce an open-source, browser-based tool that allows users to predict Lab values from CMYK percentages 
+and introduce an open-source, browser-based tool that allows users to predict L* a* b* values from CMYK percentages 
 and evaluate whether a target color falls within the gamut of a specific printer profile.
 
 Understanding the distinction between color measurement and color prediction is an important step toward more 
@@ -130,7 +130,7 @@ For example, a dark gray might be printed using:
 * Less cyan, magenta, and yellow with more black
 * A balance somewhere in between
 
-Even though the CMYK recipes are different, the resulting Lab values may be very similar.
+Even though the CMYK recipes are different, the resulting L* a* b* values may be very similar.
 
 This creates a problem.
 
@@ -176,7 +176,7 @@ This is where ICC profiles become important. They provide a characterization of 
 missing link between CMYK percentages and measured color.
 
 In Part 2, I will introduce a browser-based tool that uses user-supplied ICC profiles to explore this relationship. The tool 
-can predict the expected L* a* b* value of a CMYK build and determine whether a target Lab color falls within the gamut of a selected 
+can predict the expected L* a* b* value of a CMYK build and determine whether a target L* a* b* color falls within the gamut of a selected 
 printer profile. The project is publicly available on GitHub and was developed as part of my own exploration into color science and
 practical color management.
 
