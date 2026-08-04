@@ -176,7 +176,7 @@ This is where ICC profiles become important. They provide a characterization of 
 missing link between CMYK percentages and measured color.
 
 In Part 2, I will introduce a browser-based tool that uses user-supplied ICC profiles to explore this relationship. The tool 
-can predict the expected Lab value of a CMYK build and determine whether a target Lab color falls within the gamut of a selected 
+can predict the expected L* a* b* value of a CMYK build and determine whether a target Lab color falls within the gamut of a selected 
 printer profile. The project is publicly available on GitHub and was developed as part of my own exploration into color science and
 practical color management.
 
