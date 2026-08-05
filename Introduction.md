@@ -308,9 +308,9 @@ tool mathematically ensures Absolute Colorimetric precision by leveraging the A2
 
 **Why Absolute Colorimetric?**
 
-In print production and proofing, we usually want to know the Absolute L* a* b* value, which includes the physical color of the paper substrate.In a perfect 
+In print production and proofing, we usually want to know the Absolute L* a* b* value, which includes the physical color of the paper substrate. In a perfect 
 world, an ICC profile would contain **A2B3** and **B2A3** tags, which are specifically designated for Absolute Colorimetric conversions. However, because these 
-tags are technically optional in the ICC specification, many CMYK press profiles completely omit them to save file size.To ensure universal compatibility across 
+tags are technically optional in the ICC specification, many CMYK press profiles completely omit them to save file size. To ensure universal compatibility across 
 all profiles, this engine bypasses the need for the A2B3/B2A3 tags by using a highly accurate mathematical scaling technique.
 
 **The Forward Pipeline (CMYK to Lab)**
