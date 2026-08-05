@@ -334,7 +334,7 @@ When you input an Absolute L* a* b* target to check the gamut and generate a CMY
 **Why Roundtrips Don't Always Match ?**
 
 Because the B2A1 table forces a specific GCR/black-generation rule during the L* a* b* $\rightarrow$ CMYK conversion, taking a CMYK value, converting it to L* a* b*, 
-and converting it back to CMYK will often yield a slightly different CMYK recipe. 
+and converting it back to CMYK will often yield a slightly different CMYK recipe. Also, other factors could be interpolation, floating-point calculations, etc.
 
 ## A Learning Project Open to Discussion
 This project began as a personal effort to better understand ICC profiles, color management, and the relationship between CMYK values and measured color. By 
