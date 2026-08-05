@@ -329,6 +329,7 @@ When you input an Absolute L* a* b* target to check the gamut and generate a CMY
 2. **Gamut Mapping & GCR (B2A1)**: That relative value is fed into the B2A1 tag. Because the CMYK color gamut is significantly smaller than the visible L* a* b*
    spectrum, the B2A1 table dictates how out-of-gamut colors are compressed to the edges of the printable space. It also applies the profile's embedded Gray
    Component Replacement (GCR) or Under Color Removal (UCR) rules to determine the exact black ink separation.
+3. **Round-trip**: The mapped CMYK is feed back through A2B1 tag and converted to Absolute colorimetric value before comparing with the input L* a* b* using delta E.
 
 **Why Roundtrips Don't Always Match ?**
 
